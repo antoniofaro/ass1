@@ -64,8 +64,17 @@ public:
 	int     removeHead();
 	int     removeLast();
 
-	void    reverse();
-
+	void    reverse(){
+		struct node *p = _pHead, *q = NULL, *r;
+		while (p != NULL)
+		{
+			r = q;
+			q = p;
+			p = p -> pNext;
+			q->pNext = r;
+		}
+    q = _pHead;
+	}
 	void    traverse(void(*op)(T&)) {
 		L1Item<T>   *p = _pHead;
 		while (p) {

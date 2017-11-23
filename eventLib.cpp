@@ -14,6 +14,7 @@
 
 /// NOTE: each event will be separated by spaces, or endline character
 void loadEvents(char* fName, L1List<ninjaEvent_t> &eList) {
+	fName = "events.txt";
 	ifstream inFile(fName);
 
 	if (inFile) {
