@@ -8,10 +8,25 @@
 #include "dbLib.h"
 #include "listLib.h"
 
+template <class T>
+struct L1Process {
+	T data;
+	L1Process<T> *pNext;
+};
+
+template <class T>
+class L1List {
+	L1Process<T>   *_pHead;// The head pointer of linked list
+public:
+	int event00();
+	int event01();
+	int event02();
+	int event03();
+	int event04();
+
 //Mã yêu cầu 00: Danh sách mã yêu cầu trong tập tin events.txt
 template <class T>
-int event00(){
-	loadEvents("events.txt", L1List<ninjaEvent_t> &eList);
+int L1List<T>::event00(){
 	int count = 0;
 	L1List<NinjaInfo_t> *pRun = new L1List<NinjaInfo_t>;
 	for (pRun = _pHead; pRun->pNext == NULL; pRun = pRun->pNext){
@@ -22,17 +37,13 @@ int event00(){
 
 //Mã yêu cầu 01: Số hiệu ninja được lưu trữ đầu tiên
 template <class T>
-int event01(){
-	loadNinjaDB("data.csv", L1List<NinjaInfo_t> &db);
-	parseNinjaInfo(char* pBuf, NinjaInfo_t& nInfo);
+int L1List<T>::event01(){
 	return _pHead->data.id;
 }
 
 //Mã yêu cầu 02: Số hiệu ninja được lưu trữ cuối cùng
 template <class T>
-int event02(){
-	loadNinjaDB("data.csv", L1List<NinjaInfo_t> &db);
-	parseNinjaInfo(char* pBuf, NinjaInfo_t& nInfo);
+int L1List<T>::event02(){
 	L1List<NinjaInfo_t> *pRun = new L1List<NinjaInfo_t>;
 	for (pRun = _pHead; pRun->pNext == NULL; pRun = pRun->pNext){
 		if (pRun->pNext == NULL) return pRun->data.id;
@@ -41,9 +52,7 @@ int event02(){
 
  //Mã yêu cầu 03: Số phần tử tham gia cuộc thi
 template <class T>
-int event03(){
-	loadNinjaDB("data.csv", L1List<NinjaInfo_t> &db);
-	parseNinjaInfo(char* pBuf, NinjaInfo_t& nInfo);
+int L1List<T>::event03(){
 	int count = 0;
 	L1List<NinjaInfo_t> *pRun = new L1List<NinjaInfo_t>;
 	for (pRun = _pHead; pRun->pNext == NULL; pRun = pRun->pNext){
@@ -55,9 +64,7 @@ int event03(){
 
  //Mã yêu cầu 04: Số hiệu lớn nhất của ninja tham gia cuộc thi
 template <class T>
-int event04(){
-	loadNinjaDB("data.csv", L1List<NinjaInfo_t> &db);
-	parseNinjaInfo(char* pBuf, NinjaInfo_t& nInfo);
+int L1List<T>::event04(){
 	int max = _pHead->data.id;
 	L1List<NinjaInfo_t> *pRun = new L1List<NinjaInfo_t>;
 	for (pRun = _pHead; pRun->pNext == NULL; pRun = pRun->pNext){
@@ -69,8 +76,6 @@ int event04(){
 
 template <class T>
 bool processEvent(ninjaEvent_t& event, L1List<NinjaInfo_t>& nList) {	
-	loadEvents("events.txt", L1List<ninjaEvent_t> &eList);
-	L1List<NinjaInfo_t> *pRun = new L1List<NinjaInfo_t>;
 	pRun = _pHead;
 	while (pRun->pNext != NULL){
 		if (pRun->data == 0){
